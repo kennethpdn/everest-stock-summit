@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      categories: {
+        Row: {
+          actif: boolean
+          created_at: string
+          description: string | null
+          id: string
+          nom: string
+          updated_at: string
+        }
+        Insert: {
+          actif?: boolean
+          created_at?: string
+          description?: string | null
+          id?: string
+          nom: string
+          updated_at?: string
+        }
+        Update: {
+          actif?: boolean
+          created_at?: string
+          description?: string | null
+          id?: string
+          nom?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       centres: {
         Row: {
           actif: boolean
@@ -37,6 +64,59 @@ export type Database = {
           nom?: string
         }
         Relationships: []
+      }
+      produits: {
+        Row: {
+          actif: boolean
+          categorie_id: string | null
+          created_at: string
+          id: string
+          nom: string
+          photo_url: string | null
+          prix_pack: number
+          prix_unitaire: number
+          reference_format: string
+          sku_code_barres: string | null
+          unites_par_pack: number
+          updated_at: string
+        }
+        Insert: {
+          actif?: boolean
+          categorie_id?: string | null
+          created_at?: string
+          id?: string
+          nom: string
+          photo_url?: string | null
+          prix_pack?: number
+          prix_unitaire?: number
+          reference_format?: string
+          sku_code_barres?: string | null
+          unites_par_pack?: number
+          updated_at?: string
+        }
+        Update: {
+          actif?: boolean
+          categorie_id?: string | null
+          created_at?: string
+          id?: string
+          nom?: string
+          photo_url?: string | null
+          prix_pack?: number
+          prix_unitaire?: number
+          reference_format?: string
+          sku_code_barres?: string | null
+          unites_par_pack?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "produits_categorie_id_fkey"
+            columns: ["categorie_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
