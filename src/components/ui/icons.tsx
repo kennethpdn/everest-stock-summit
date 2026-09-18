@@ -41,13 +41,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
-type IconProps = Omit<ComponentProps<typeof FontAwesomeIcon>, "icon"> & {
+type FontAwesomeProps = ComponentProps<typeof FontAwesomeIcon>;
+
+type IconProps = Omit<FontAwesomeProps, "icon" | "size"> & {
+  size?: FontAwesomeProps["size"] | number;
   strokeWidth?: number;
 };
 
 function makeIcon(icon: IconDefinition) {
-  return function AwesomeIcon({ strokeWidth: _strokeWidth, ...props }: IconProps) {
-    return <FontAwesomeIcon icon={icon} {...props} />;
+  return function AwesomeIcon({ strokeWidth: _strokeWidth, size, ...props }: IconProps) {
+    return <FontAwesomeIcon icon={icon} size={typeof size === "number" ? undefined : size} {...props} />;
   };
 }
 
