@@ -37,19 +37,25 @@ import {
 } from "@/components/ui/sheet";
 import { supabase } from "@/integrations/supabase/client";
 
-type NavItem = { label: string; icon: typeof Package; to?: "/dashboard" | "/produits" };
+type NavItem = {
+  label: string;
+  icon: typeof Package;
+  to?: "/dashboard" | "/produits" | "/stocks" | "/centres";
+  managersOnly?: boolean;
+};
 
 const navigation: NavItem[] = [
   { label: "Tableau de bord", icon: LayoutDashboard, to: "/dashboard" },
   { label: "Produits", icon: Package, to: "/produits" },
-  { label: "Stocks", icon: Boxes },
+  { label: "Stocks", icon: Boxes, to: "/stocks" },
   { label: "Mouvements", icon: ArrowDownUp },
-  { label: "Centres de vente", icon: Building2 },
+  { label: "Centres de vente", icon: Building2, to: "/centres", managersOnly: true },
   { label: "Réapprovisionnement", icon: Truck },
   { label: "Rapports", icon: FileChartColumn },
   { label: "Utilisateurs", icon: Users },
   { label: "Paramètres", icon: Settings },
 ];
+
 
 export function Brand() {
   return (
