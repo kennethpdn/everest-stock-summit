@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import {
   ArrowDownUp,
   Bell,
@@ -39,6 +39,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
@@ -133,6 +134,11 @@ function Navigation({ mobile = false }: { mobile?: boolean }) {
 }
 
 function Header() {
+  const navigate = useNavigate();
+  const { profile, roles } = Route.useRouteContext();
+  const isAdmin = roles.includes("admin");
+  const initials = profile.nom_complet.split(" ").map((part) => part[0]).join("").slice(0, 2).toUpperCase();
+  async function signOut() { await supabase.auth.signOut(); await navigate({ to: "/auth", replace: true }); }
   return (
     <header className="sticky top-0 z-30 grid h-17 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 border-b bg-card px-4 md:px-7">
       <Sheet>
@@ -181,10 +187,10 @@ function Header() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-11 gap-2 px-1.5 sm:px-2" aria-label="Menu utilisateur">
-              <span className="grid size-8 place-items-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">AD</span>
+               <span className="grid size-8 place-items-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">{initials}</span>
               <span className="hidden text-left lg:block">
-                <span className="block text-xs font-semibold text-foreground">Admin Everest</span>
-                <span className="block text-[11px] font-normal text-muted-foreground">Administrateur</span>
+                 <span className="block text-xs font-semibold text-foreground">{profile.nom_complet}</span>
+                 <span className="block text-[11px] font-normal text-muted-foreground">{isAdmin ? "Administrateur" : "Utilisateur autorisé"}</span>
               </span>
               <ChevronDown className="hidden size-4 text-muted-foreground sm:block" />
             </Button>
@@ -193,7 +199,8 @@ function Header() {
             <DropdownMenuLabel>Mon compte</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem><CircleUserRound /> Profil</DropdownMenuItem>
-            <DropdownMenuItem className="text-danger focus:text-danger"><LogOut /> Déconnexion</DropdownMenuItem>
+             {isAdmin && <DropdownMenuItem asChild><Link to="/admin/utilisateurs"><Users /> Utilisateurs en attente</Link></DropdownMenuItem>}
+             <DropdownMenuItem className="text-danger focus:text-danger" onSelect={() => void signOut()}><LogOut /> Déconnexion</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
