@@ -45,23 +45,38 @@ export type Database = {
         Row: {
           actif: boolean
           adresse: string | null
+          contact_nom: string | null
+          contact_telephone: string | null
           created_at: string
           id: string
           nom: string
+          type_centre: Database["public"]["Enums"]["type_centre"]
+          updated_at: string
+          zone: string | null
         }
         Insert: {
           actif?: boolean
           adresse?: string | null
+          contact_nom?: string | null
+          contact_telephone?: string | null
           created_at?: string
           id?: string
           nom: string
+          type_centre?: Database["public"]["Enums"]["type_centre"]
+          updated_at?: string
+          zone?: string | null
         }
         Update: {
           actif?: boolean
           adresse?: string | null
+          contact_nom?: string | null
+          contact_telephone?: string | null
           created_at?: string
           id?: string
           nom?: string
+          type_centre?: Database["public"]["Enums"]["type_centre"]
+          updated_at?: string
+          zone?: string | null
         }
         Relationships: []
       }
@@ -162,6 +177,51 @@ export type Database = {
           },
         ]
       }
+      stocks: {
+        Row: {
+          centre_id: string | null
+          created_at: string
+          derniere_maj: string
+          id: string
+          produit_id: string
+          quantite_unites: number
+          seuil_alerte: number
+        }
+        Insert: {
+          centre_id?: string | null
+          created_at?: string
+          derniere_maj?: string
+          id?: string
+          produit_id: string
+          quantite_unites?: number
+          seuil_alerte?: number
+        }
+        Update: {
+          centre_id?: string | null
+          created_at?: string
+          derniere_maj?: string
+          id?: string
+          produit_id?: string
+          quantite_unites?: number
+          seuil_alerte?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "stocks_centre_id_fkey"
+            columns: ["centre_id"]
+            isOneToOne: false
+            referencedRelation: "centres"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "stocks_produit_id_fkey"
+            columns: ["produit_id"]
+            isOneToOne: false
+            referencedRelation: "produits"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           id: string
@@ -197,10 +257,12 @@ export type Database = {
         Args: { _approve: boolean; _user_id: string }
         Returns: undefined
       }
+      user_centre_id: { Args: { _user_id: string }; Returns: string }
     }
     Enums: {
       account_status: "pending" | "approved" | "rejected"
       app_role: "admin" | "gestionnaire_entrepot" | "responsable_centre"
+      type_centre: "bar" | "restaurant" | "supermarche" | "lounge" | "depot"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -330,6 +392,7 @@ export const Constants = {
     Enums: {
       account_status: ["pending", "approved", "rejected"],
       app_role: ["admin", "gestionnaire_entrepot", "responsable_centre"],
+      type_centre: ["bar", "restaurant", "supermarche", "lounge", "depot"],
     },
   },
 } as const

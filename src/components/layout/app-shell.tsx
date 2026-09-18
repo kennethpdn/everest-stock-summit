@@ -37,19 +37,25 @@ import {
 } from "@/components/ui/sheet";
 import { supabase } from "@/integrations/supabase/client";
 
-type NavItem = { label: string; icon: typeof Package; to?: "/dashboard" | "/produits" };
+type NavItem = {
+  label: string;
+  icon: typeof Package;
+  to?: "/dashboard" | "/produits" | "/stocks" | "/centres";
+  managersOnly?: boolean;
+};
 
 const navigation: NavItem[] = [
   { label: "Tableau de bord", icon: LayoutDashboard, to: "/dashboard" },
   { label: "Produits", icon: Package, to: "/produits" },
-  { label: "Stocks", icon: Boxes },
+  { label: "Stocks", icon: Boxes, to: "/stocks" },
   { label: "Mouvements", icon: ArrowDownUp },
-  { label: "Centres de vente", icon: Building2 },
+  { label: "Centres de vente", icon: Building2, to: "/centres", managersOnly: true },
   { label: "Réapprovisionnement", icon: Truck },
   { label: "Rapports", icon: FileChartColumn },
   { label: "Utilisateurs", icon: Users },
   { label: "Paramètres", icon: Settings },
 ];
+
 
 export function Brand() {
   return (
@@ -73,12 +79,17 @@ export function Brand() {
 
 function Navigation({ mobile = false }: { mobile?: boolean }) {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const { roles } = useRouteContext({ from: "/_authenticated" });
+  const isManager = roles.includes("admin") || roles.includes("gestionnaire_entrepot");
 
   return (
     <nav aria-label="Navigation principale" className="mt-8 flex flex-1 flex-col gap-1">
-      {navigation.map((item) => {
+      {navigation
+        .filter((item) => !item.managersOnly || isManager)
+        .map((item) => {
         const Icon = item.icon;
         const active = item.to ? pathname.startsWith(item.to) : false;
+
         const className = `h-11 w-full justify-start px-3 text-[13px] font-medium ${
           active
             ? "bg-sidebar-primary text-sidebar-primary-foreground hover:bg-sidebar-primary/90 hover:text-sidebar-primary-foreground"
