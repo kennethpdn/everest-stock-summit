@@ -23,6 +23,8 @@ import {
   faClock,
   faGear,
   faGripVertical,
+  faEye,
+  faEyeSlash,
   faLock,
   faMagnifyingGlass,
   faMinus,
@@ -73,6 +75,8 @@ export const Circle = makeIcon(faCircle);
 export const CircleUserRound = makeIcon(faCircleUser);
 export const Clock3 = makeIcon(faClock);
 export const FileChartColumn = makeIcon(faChartColumn);
+export const Eye = makeIcon(faEye);
+export const EyeOff = makeIcon(faEyeSlash);
 export const GripVertical = makeIcon(faGripVertical);
 export const LayoutDashboard = makeIcon(faChartColumn);
 export const LoaderCircle = makeIcon(faSpinner);
