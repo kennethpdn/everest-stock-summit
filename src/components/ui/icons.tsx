@@ -23,6 +23,14 @@ import {
   faClock,
   faGear,
   faGripVertical,
+  faPlus,
+  faPenToSquare,
+  faImage,
+  faFilter,
+  faBan,
+  faRotateLeft,
+  faTags,
+  faCloudArrowUp,
   faEye,
   faEyeSlash,
   faLock,
@@ -100,3 +108,11 @@ export const UserPlus = makeIcon(faUserPlus);
 export const Users = makeIcon(faUsers);
 export const X = makeIcon(faXmark);
 export const XCircle = makeIcon(faCircleXmark);
+export const Plus = makeIcon(faPlus);
+export const Pencil = makeIcon(faPenToSquare);
+export const ImageIcon = makeIcon(faImage);
+export const Filter = makeIcon(faFilter);
+export const Ban = makeIcon(faBan);
+export const RotateLeft = makeIcon(faRotateLeft);
+export const Tags = makeIcon(faTags);
+export const CloudUpload = makeIcon(faCloudArrowUp);
