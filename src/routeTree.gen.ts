@@ -14,8 +14,10 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as EnAttenteRouteImport } from './routes/en-attente'
 import { Route as InscriptionRouteImport } from './routes/inscription'
+import { Route as AuthenticatedCentresRouteImport } from './routes/_authenticated/centres'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedProduitsRouteImport } from './routes/_authenticated/produits'
+import { Route as AuthenticatedStocksRouteImport } from './routes/_authenticated/stocks'
 import { Route as AuthenticatedAdminUtilisateursRouteImport } from './routes/_authenticated/admin/utilisateurs'
 
 const IndexRoute = IndexRouteImport.update({
@@ -42,6 +44,11 @@ const InscriptionRoute = InscriptionRouteImport.update({
   path: '/inscription',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedCentresRoute = AuthenticatedCentresRouteImport.update({
+  id: '/centres',
+  path: '/centres',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -50,6 +57,11 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
 const AuthenticatedProduitsRoute = AuthenticatedProduitsRouteImport.update({
   id: '/produits',
   path: '/produits',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedStocksRoute = AuthenticatedStocksRouteImport.update({
+  id: '/stocks',
+  path: '/stocks',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedAdminUtilisateursRoute =
@@ -64,8 +76,10 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/en-attente': typeof EnAttenteRoute
   '/inscription': typeof InscriptionRoute
+  '/centres': typeof AuthenticatedCentresRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/produits': typeof AuthenticatedProduitsRoute
+  '/stocks': typeof AuthenticatedStocksRoute
   '/admin/utilisateurs': typeof AuthenticatedAdminUtilisateursRoute
 }
 export interface FileRoutesByTo {
@@ -73,8 +87,10 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/en-attente': typeof EnAttenteRoute
   '/inscription': typeof InscriptionRoute
+  '/centres': typeof AuthenticatedCentresRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/produits': typeof AuthenticatedProduitsRoute
+  '/stocks': typeof AuthenticatedStocksRoute
   '/admin/utilisateurs': typeof AuthenticatedAdminUtilisateursRoute
 }
 export interface FileRoutesById {
@@ -84,8 +100,10 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/en-attente': typeof EnAttenteRoute
   '/inscription': typeof InscriptionRoute
+  '/_authenticated/centres': typeof AuthenticatedCentresRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/produits': typeof AuthenticatedProduitsRoute
+  '/_authenticated/stocks': typeof AuthenticatedStocksRoute
   '/_authenticated/admin/utilisateurs': typeof AuthenticatedAdminUtilisateursRoute
 }
 export interface FileRouteTypes {
@@ -95,8 +113,10 @@ export interface FileRouteTypes {
     | '/auth'
     | '/en-attente'
     | '/inscription'
+    | '/centres'
     | '/dashboard'
     | '/produits'
+    | '/stocks'
     | '/admin/utilisateurs'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -104,8 +124,10 @@ export interface FileRouteTypes {
     | '/auth'
     | '/en-attente'
     | '/inscription'
+    | '/centres'
     | '/dashboard'
     | '/produits'
+    | '/stocks'
     | '/admin/utilisateurs'
   id:
     | '__root__'
@@ -114,8 +136,10 @@ export interface FileRouteTypes {
     | '/auth'
     | '/en-attente'
     | '/inscription'
+    | '/_authenticated/centres'
     | '/_authenticated/dashboard'
     | '/_authenticated/produits'
+    | '/_authenticated/stocks'
     | '/_authenticated/admin/utilisateurs'
   fileRoutesById: FileRoutesById
 }
@@ -164,6 +188,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InscriptionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/centres': {
+      id: '/_authenticated/centres'
+      path: '/centres'
+      fullPath: '/centres'
+      preLoaderRoute: typeof AuthenticatedCentresRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -178,6 +209,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedProduitsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/stocks': {
+      id: '/_authenticated/stocks'
+      path: '/stocks'
+      fullPath: '/stocks'
+      preLoaderRoute: typeof AuthenticatedStocksRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/utilisateurs': {
       id: '/_authenticated/admin/utilisateurs'
       path: '/admin/utilisateurs'
@@ -189,14 +227,18 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedCentresRoute: typeof AuthenticatedCentresRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedProduitsRoute: typeof AuthenticatedProduitsRoute
+  AuthenticatedStocksRoute: typeof AuthenticatedStocksRoute
   AuthenticatedAdminUtilisateursRoute: typeof AuthenticatedAdminUtilisateursRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedCentresRoute: AuthenticatedCentresRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedProduitsRoute: AuthenticatedProduitsRoute,
+  AuthenticatedStocksRoute: AuthenticatedStocksRoute,
   AuthenticatedAdminUtilisateursRoute: AuthenticatedAdminUtilisateursRoute,
 }
 
