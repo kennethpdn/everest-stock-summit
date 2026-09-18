@@ -14,16 +14,113 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      centres: {
+        Row: {
+          actif: boolean
+          adresse: string | null
+          created_at: string
+          id: string
+          nom: string
+        }
+        Insert: {
+          actif?: boolean
+          adresse?: string | null
+          created_at?: string
+          id?: string
+          nom: string
+        }
+        Update: {
+          actif?: boolean
+          adresse?: string | null
+          created_at?: string
+          id?: string
+          nom?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          centre_id: string | null
+          created_at: string
+          email: string
+          id: string
+          nom_complet: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          role_souhaite: Database["public"]["Enums"]["app_role"]
+          statut: Database["public"]["Enums"]["account_status"]
+        }
+        Insert: {
+          centre_id?: string | null
+          created_at?: string
+          email: string
+          id: string
+          nom_complet: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          role_souhaite: Database["public"]["Enums"]["app_role"]
+          statut?: Database["public"]["Enums"]["account_status"]
+        }
+        Update: {
+          centre_id?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          nom_complet?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          role_souhaite?: Database["public"]["Enums"]["app_role"]
+          statut?: Database["public"]["Enums"]["account_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_centre_id_fkey"
+            columns: ["centre_id"]
+            isOneToOne: false
+            referencedRelation: "centres"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_approved: { Args: { _user_id: string }; Returns: boolean }
+      review_registration: {
+        Args: { _approve: boolean; _user_id: string }
+        Returns: undefined
+      }
     }
     Enums: {
-      [_ in never]: never
+      account_status: "pending" | "approved" | "rejected"
+      app_role: "admin" | "gestionnaire_entrepot" | "responsable_centre"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +247,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      account_status: ["pending", "approved", "rejected"],
+      app_role: ["admin", "gestionnaire_entrepot", "responsable_centre"],
+    },
   },
 } as const
