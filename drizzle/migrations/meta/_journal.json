@@ -15,6 +15,13 @@
       "when": 1789708853856,
       "tag": "0001_allow_public_active_centre_list",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789708995646,
+      "tag": "0002_harden_security_definer_functions",
+      "breakpoints": true
     }
   ]
 }
