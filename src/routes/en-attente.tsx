@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Clock3, XCircle } from "lucide-react";
+import { Clock3, XCircle } from "@/components/ui/icons";
 import { z } from "zod";
 import { AuthShell } from "@/components/auth/auth-shell";
 import { Button } from "@/components/ui/button";

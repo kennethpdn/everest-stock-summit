@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { Mountain } from "lucide-react";
+import { Mountain } from "@/components/ui/icons";
 
 export function AuthShell({ children }: { children: ReactNode }) {
   return <main className="grid min-h-screen bg-background lg:grid-cols-[minmax(280px,0.8fr)_1.2fr]">
