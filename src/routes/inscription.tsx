@@ -1,6 +1,6 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { CheckCircle2, LoaderCircle, UserPlus } from "lucide-react";
+import { CheckCircle2, LoaderCircle, UserPlus } from "@/components/ui/icons";
 import { AuthShell } from "@/components/auth/auth-shell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
