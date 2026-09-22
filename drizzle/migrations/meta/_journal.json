@@ -57,6 +57,13 @@
       "when": 1790069341924,
       "tag": "0007_admin_bootstrap_allowlist",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1790073956704,
+      "tag": "0008_allow_bootstrap_admin_email",
+      "breakpoints": true
     }
   ]
 }
