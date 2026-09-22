@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { createFileRoute, useRouteContext } from "@tanstack/react-router";
 import {
   Boxes,
   Package,
@@ -8,7 +9,9 @@ import {
 } from "@/components/ui/icons";
 
 import { AppShell } from "@/components/layout/app-shell";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { MouvementDialog } from "@/components/stock/mouvement-dialog";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
