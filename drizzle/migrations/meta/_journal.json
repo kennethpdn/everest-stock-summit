@@ -43,6 +43,13 @@
       "when": 1789711382505,
       "tag": "0005_create_centres_stocks_module",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1790068909872,
+      "tag": "0006_create_mouvements_stock",
+      "breakpoints": true
     }
   ]
 }
