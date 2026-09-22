@@ -14,6 +14,24 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_bootstrap_emails: {
+        Row: {
+          created_at: string
+          email: string
+          note: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          note?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          note?: string | null
+        }
+        Relationships: []
+      }
       categories: {
         Row: {
           actif: boolean
@@ -318,6 +336,7 @@ export type Database = {
         Returns: boolean
       }
       is_approved: { Args: { _user_id: string }; Returns: boolean }
+      promote_bootstrap_admins: { Args: never; Returns: number }
       review_registration: {
         Args: { _approve: boolean; _user_id: string }
         Returns: undefined
