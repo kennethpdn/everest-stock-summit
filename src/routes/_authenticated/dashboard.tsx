@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { createFileRoute, useRouteContext } from "@tanstack/react-router";
 import {
   Boxes,
   Package,
@@ -8,7 +9,9 @@ import {
 } from "@/components/ui/icons";
 
 import { AppShell } from "@/components/layout/app-shell";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { MouvementDialog } from "@/components/stock/mouvement-dialog";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
@@ -38,15 +41,42 @@ const indicators = [
 ];
 
 function DashboardPage() {
+  const { user, profile, roles } = useRouteContext({ from: "/_authenticated" });
+  const isResponsable = roles.includes("responsable_centre") && !!profile.centre_id;
+  const [venteOpen, setVenteOpen] = useState(false);
+
   return (
     <AppShell>
-      <div className="mb-7">
-        <p className="mb-1 text-sm font-medium text-accent">Vue d’ensemble</p>
-        <h1 className="text-3xl font-bold text-primary sm:text-4xl">Tableau de bord</h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Bienvenue sur votre espace de gestion multi-centres.
-        </p>
+      <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="mb-1 text-sm font-medium text-accent">Vue d’ensemble</p>
+          <h1 className="text-3xl font-bold text-primary sm:text-4xl">Tableau de bord</h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Bienvenue sur votre espace de gestion multi-centres.
+          </p>
+        </div>
+        {isResponsable && (
+          <Button
+            className="bg-accent text-accent-foreground hover:bg-accent/90"
+            onClick={() => setVenteOpen(true)}
+          >
+            <ShoppingCart className="size-4" /> Enregistrer une vente
+          </Button>
+        )}
       </div>
+
+      {isResponsable && (
+        <MouvementDialog
+          open={venteOpen}
+          onOpenChange={setVenteOpen}
+          isManager={false}
+          centreDuProfil={profile.centre_id ?? null}
+          utilisateurId={user.id}
+          typesAutorises={["vente"]}
+          titre="Enregistrer une vente"
+        />
+      )}
+
 
       <section
         aria-label="Indicateurs principaux"

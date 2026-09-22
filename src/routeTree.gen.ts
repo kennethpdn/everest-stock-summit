@@ -16,6 +16,7 @@ import { Route as EnAttenteRouteImport } from './routes/en-attente'
 import { Route as InscriptionRouteImport } from './routes/inscription'
 import { Route as AuthenticatedCentresRouteImport } from './routes/_authenticated/centres'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedMouvementsRouteImport } from './routes/_authenticated/mouvements'
 import { Route as AuthenticatedProduitsRouteImport } from './routes/_authenticated/produits'
 import { Route as AuthenticatedStocksRouteImport } from './routes/_authenticated/stocks'
 import { Route as AuthenticatedAdminUtilisateursRouteImport } from './routes/_authenticated/admin/utilisateurs'
@@ -54,6 +55,11 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedMouvementsRoute = AuthenticatedMouvementsRouteImport.update({
+  id: '/mouvements',
+  path: '/mouvements',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedProduitsRoute = AuthenticatedProduitsRouteImport.update({
   id: '/produits',
   path: '/produits',
@@ -78,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/inscription': typeof InscriptionRoute
   '/centres': typeof AuthenticatedCentresRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/mouvements': typeof AuthenticatedMouvementsRoute
   '/produits': typeof AuthenticatedProduitsRoute
   '/stocks': typeof AuthenticatedStocksRoute
   '/admin/utilisateurs': typeof AuthenticatedAdminUtilisateursRoute
@@ -89,6 +96,7 @@ export interface FileRoutesByTo {
   '/inscription': typeof InscriptionRoute
   '/centres': typeof AuthenticatedCentresRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/mouvements': typeof AuthenticatedMouvementsRoute
   '/produits': typeof AuthenticatedProduitsRoute
   '/stocks': typeof AuthenticatedStocksRoute
   '/admin/utilisateurs': typeof AuthenticatedAdminUtilisateursRoute
@@ -102,6 +110,7 @@ export interface FileRoutesById {
   '/inscription': typeof InscriptionRoute
   '/_authenticated/centres': typeof AuthenticatedCentresRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/mouvements': typeof AuthenticatedMouvementsRoute
   '/_authenticated/produits': typeof AuthenticatedProduitsRoute
   '/_authenticated/stocks': typeof AuthenticatedStocksRoute
   '/_authenticated/admin/utilisateurs': typeof AuthenticatedAdminUtilisateursRoute
@@ -115,6 +124,7 @@ export interface FileRouteTypes {
     | '/inscription'
     | '/centres'
     | '/dashboard'
+    | '/mouvements'
     | '/produits'
     | '/stocks'
     | '/admin/utilisateurs'
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/inscription'
     | '/centres'
     | '/dashboard'
+    | '/mouvements'
     | '/produits'
     | '/stocks'
     | '/admin/utilisateurs'
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/inscription'
     | '/_authenticated/centres'
     | '/_authenticated/dashboard'
+    | '/_authenticated/mouvements'
     | '/_authenticated/produits'
     | '/_authenticated/stocks'
     | '/_authenticated/admin/utilisateurs'
@@ -202,6 +214,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/mouvements': {
+      id: '/_authenticated/mouvements'
+      path: '/mouvements'
+      fullPath: '/mouvements'
+      preLoaderRoute: typeof AuthenticatedMouvementsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/produits': {
       id: '/_authenticated/produits'
       path: '/produits'
@@ -229,6 +248,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedCentresRoute: typeof AuthenticatedCentresRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedMouvementsRoute: typeof AuthenticatedMouvementsRoute
   AuthenticatedProduitsRoute: typeof AuthenticatedProduitsRoute
   AuthenticatedStocksRoute: typeof AuthenticatedStocksRoute
   AuthenticatedAdminUtilisateursRoute: typeof AuthenticatedAdminUtilisateursRoute
@@ -237,6 +257,7 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedCentresRoute: AuthenticatedCentresRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedMouvementsRoute: AuthenticatedMouvementsRoute,
   AuthenticatedProduitsRoute: AuthenticatedProduitsRoute,
   AuthenticatedStocksRoute: AuthenticatedStocksRoute,
   AuthenticatedAdminUtilisateursRoute: AuthenticatedAdminUtilisateursRoute,

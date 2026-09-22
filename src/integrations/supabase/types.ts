@@ -80,6 +80,67 @@ export type Database = {
         }
         Relationships: []
       }
+      mouvements_stock: {
+        Row: {
+          centre_destination_id: string | null
+          centre_source_id: string | null
+          created_at: string
+          id: string
+          motif: string | null
+          produit_id: string
+          quantite_unites: number
+          type_mouvement: Database["public"]["Enums"]["type_mouvement"]
+          utilisateur_id: string
+          utilisateur_nom: string | null
+        }
+        Insert: {
+          centre_destination_id?: string | null
+          centre_source_id?: string | null
+          created_at?: string
+          id?: string
+          motif?: string | null
+          produit_id: string
+          quantite_unites: number
+          type_mouvement: Database["public"]["Enums"]["type_mouvement"]
+          utilisateur_id: string
+          utilisateur_nom?: string | null
+        }
+        Update: {
+          centre_destination_id?: string | null
+          centre_source_id?: string | null
+          created_at?: string
+          id?: string
+          motif?: string | null
+          produit_id?: string
+          quantite_unites?: number
+          type_mouvement?: Database["public"]["Enums"]["type_mouvement"]
+          utilisateur_id?: string
+          utilisateur_nom?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mouvements_stock_centre_destination_id_fkey"
+            columns: ["centre_destination_id"]
+            isOneToOne: false
+            referencedRelation: "centres"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mouvements_stock_centre_source_id_fkey"
+            columns: ["centre_source_id"]
+            isOneToOne: false
+            referencedRelation: "centres"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mouvements_stock_produit_id_fkey"
+            columns: ["produit_id"]
+            isOneToOne: false
+            referencedRelation: "produits"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       produits: {
         Row: {
           actif: boolean
@@ -245,6 +306,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      apply_stock_delta: {
+        Args: { _centre: string; _delta: number; _produit: string }
+        Returns: undefined
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -263,6 +328,12 @@ export type Database = {
       account_status: "pending" | "approved" | "rejected"
       app_role: "admin" | "gestionnaire_entrepot" | "responsable_centre"
       type_centre: "bar" | "restaurant" | "supermarche" | "lounge" | "depot"
+      type_mouvement:
+        | "entree"
+        | "sortie_vers_centre"
+        | "vente"
+        | "retour"
+        | "casse_invendu"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -393,6 +464,13 @@ export const Constants = {
       account_status: ["pending", "approved", "rejected"],
       app_role: ["admin", "gestionnaire_entrepot", "responsable_centre"],
       type_centre: ["bar", "restaurant", "supermarche", "lounge", "depot"],
+      type_mouvement: [
+        "entree",
+        "sortie_vers_centre",
+        "vente",
+        "retour",
+        "casse_invendu",
+      ],
     },
   },
 } as const
