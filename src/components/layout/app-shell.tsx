@@ -17,6 +17,7 @@ import {
   Settings,
   Truck,
   Users,
+  ShieldCheck,
 } from "@/components/ui/icons";
 import { Button } from "@/components/ui/button";
 import {
@@ -220,6 +221,13 @@ function Header() {
               <DropdownMenuItem asChild>
                 <Link to="/admin/utilisateurs">
                   <Users /> Utilisateurs en attente
+                </Link>
+              </DropdownMenuItem>
+            )}
+            {isAdmin && (
+              <DropdownMenuItem asChild>
+                <Link to="/admin/journal">
+                  <ShieldCheck /> Journal d’audit
                 </Link>
               </DropdownMenuItem>
             )}
