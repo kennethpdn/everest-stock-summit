@@ -19,6 +19,7 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedMouvementsRouteImport } from './routes/_authenticated/mouvements'
 import { Route as AuthenticatedProduitsRouteImport } from './routes/_authenticated/produits'
 import { Route as AuthenticatedStocksRouteImport } from './routes/_authenticated/stocks'
+import { Route as AuthenticatedAdminJournalRouteImport } from './routes/_authenticated/admin/journal'
 import { Route as AuthenticatedAdminUtilisateursRouteImport } from './routes/_authenticated/admin/utilisateurs'
 
 const IndexRoute = IndexRouteImport.update({
@@ -70,6 +71,12 @@ const AuthenticatedStocksRoute = AuthenticatedStocksRouteImport.update({
   path: '/stocks',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminJournalRoute =
+  AuthenticatedAdminJournalRouteImport.update({
+    id: '/admin/journal',
+    path: '/admin/journal',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminUtilisateursRoute =
   AuthenticatedAdminUtilisateursRouteImport.update({
     id: '/admin/utilisateurs',
@@ -87,6 +94,7 @@ export interface FileRoutesByFullPath {
   '/mouvements': typeof AuthenticatedMouvementsRoute
   '/produits': typeof AuthenticatedProduitsRoute
   '/stocks': typeof AuthenticatedStocksRoute
+  '/admin/journal': typeof AuthenticatedAdminJournalRoute
   '/admin/utilisateurs': typeof AuthenticatedAdminUtilisateursRoute
 }
 export interface FileRoutesByTo {
@@ -99,6 +107,7 @@ export interface FileRoutesByTo {
   '/mouvements': typeof AuthenticatedMouvementsRoute
   '/produits': typeof AuthenticatedProduitsRoute
   '/stocks': typeof AuthenticatedStocksRoute
+  '/admin/journal': typeof AuthenticatedAdminJournalRoute
   '/admin/utilisateurs': typeof AuthenticatedAdminUtilisateursRoute
 }
 export interface FileRoutesById {
@@ -113,6 +122,7 @@ export interface FileRoutesById {
   '/_authenticated/mouvements': typeof AuthenticatedMouvementsRoute
   '/_authenticated/produits': typeof AuthenticatedProduitsRoute
   '/_authenticated/stocks': typeof AuthenticatedStocksRoute
+  '/_authenticated/admin/journal': typeof AuthenticatedAdminJournalRoute
   '/_authenticated/admin/utilisateurs': typeof AuthenticatedAdminUtilisateursRoute
 }
 export interface FileRouteTypes {
@@ -127,6 +137,7 @@ export interface FileRouteTypes {
     | '/mouvements'
     | '/produits'
     | '/stocks'
+    | '/admin/journal'
     | '/admin/utilisateurs'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -139,6 +150,7 @@ export interface FileRouteTypes {
     | '/mouvements'
     | '/produits'
     | '/stocks'
+    | '/admin/journal'
     | '/admin/utilisateurs'
   id:
     | '__root__'
@@ -152,6 +164,7 @@ export interface FileRouteTypes {
     | '/_authenticated/mouvements'
     | '/_authenticated/produits'
     | '/_authenticated/stocks'
+    | '/_authenticated/admin/journal'
     | '/_authenticated/admin/utilisateurs'
   fileRoutesById: FileRoutesById
 }
@@ -235,6 +248,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedStocksRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/journal': {
+      id: '/_authenticated/admin/journal'
+      path: '/admin/journal'
+      fullPath: '/admin/journal'
+      preLoaderRoute: typeof AuthenticatedAdminJournalRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/utilisateurs': {
       id: '/_authenticated/admin/utilisateurs'
       path: '/admin/utilisateurs'
@@ -251,6 +271,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedMouvementsRoute: typeof AuthenticatedMouvementsRoute
   AuthenticatedProduitsRoute: typeof AuthenticatedProduitsRoute
   AuthenticatedStocksRoute: typeof AuthenticatedStocksRoute
+  AuthenticatedAdminJournalRoute: typeof AuthenticatedAdminJournalRoute
   AuthenticatedAdminUtilisateursRoute: typeof AuthenticatedAdminUtilisateursRoute
 }
 
@@ -260,6 +281,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedMouvementsRoute: AuthenticatedMouvementsRoute,
   AuthenticatedProduitsRoute: AuthenticatedProduitsRoute,
   AuthenticatedStocksRoute: AuthenticatedStocksRoute,
+  AuthenticatedAdminJournalRoute: AuthenticatedAdminJournalRoute,
   AuthenticatedAdminUtilisateursRoute: AuthenticatedAdminUtilisateursRoute,
 }
 
