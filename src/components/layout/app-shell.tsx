@@ -223,6 +223,13 @@ function Header() {
                 </Link>
               </DropdownMenuItem>
             )}
+            {isAdmin && (
+              <DropdownMenuItem asChild>
+                <Link to="/admin/journal">
+                  <ShieldCheck /> Journal d’audit
+                </Link>
+              </DropdownMenuItem>
+            )}
             <DropdownMenuItem
               className="text-danger focus:text-danger"
               onSelect={() => void signOut()}
