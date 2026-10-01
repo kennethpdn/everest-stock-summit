@@ -98,6 +98,42 @@ export type Database = {
         }
         Relationships: []
       }
+      journal_audit: {
+        Row: {
+          action: string
+          auteur_id: string | null
+          auteur_nom: string | null
+          categorie: string
+          cible: string | null
+          created_at: string
+          description: string | null
+          details: Json | null
+          id: string
+        }
+        Insert: {
+          action: string
+          auteur_id?: string | null
+          auteur_nom?: string | null
+          categorie: string
+          cible?: string | null
+          created_at?: string
+          description?: string | null
+          details?: Json | null
+          id?: string
+        }
+        Update: {
+          action?: string
+          auteur_id?: string | null
+          auteur_nom?: string | null
+          categorie?: string
+          cible?: string | null
+          created_at?: string
+          description?: string | null
+          details?: Json | null
+          id?: string
+        }
+        Relationships: []
+      }
       mouvements_stock: {
         Row: {
           centre_destination_id: string | null
@@ -336,12 +372,23 @@ export type Database = {
         Returns: boolean
       }
       is_approved: { Args: { _user_id: string }; Returns: boolean }
+      log_connexion: { Args: never; Returns: undefined }
       promote_bootstrap_admins: { Args: never; Returns: number }
       review_registration: {
         Args: { _approve: boolean; _user_id: string }
         Returns: undefined
       }
       user_centre_id: { Args: { _user_id: string }; Returns: string }
+      write_audit: {
+        Args: {
+          _action: string
+          _categorie: string
+          _cible: string
+          _description: string
+          _details: Json
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       account_status: "pending" | "approved" | "rejected"
