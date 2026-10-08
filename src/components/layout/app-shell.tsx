@@ -41,7 +41,8 @@ import { supabase } from "@/integrations/supabase/client";
 type NavItem = {
   label: string;
   icon: typeof Package;
-  to?: "/dashboard" | "/produits" | "/stocks" | "/centres" | "/mouvements" | "/reapprovisionnement" | "/rapports";
+  to?: "/dashboard" | "/produits" | "/stocks" | "/centres" | "/mouvements" | "/reapprovisionnement" | "/rapports" | "/admin/utilisateurs";
+  adminOnly?: boolean;
   managersOnly?: boolean;
 };
 
@@ -53,7 +54,7 @@ const navigation: NavItem[] = [
   { label: "Centres de vente", icon: Building2, to: "/centres", managersOnly: true },
   { label: "Réapprovisionnement", icon: Truck, to: "/reapprovisionnement" },
   { label: "Rapports", icon: FileChartColumn, to: "/rapports" },
-  { label: "Utilisateurs", icon: Users },
+  { label: "Utilisateurs", icon: Users, to: "/admin/utilisateurs", adminOnly: true },
   { label: "Paramètres", icon: Settings },
 ];
 
@@ -86,7 +87,7 @@ function Navigation({ mobile = false }: { mobile?: boolean }) {
   return (
     <nav aria-label="Navigation principale" className="mt-8 flex flex-1 flex-col gap-1">
       {navigation
-        .filter((item) => !item.managersOnly || isManager)
+        .filter((item) => (!item.managersOnly || isManager) && (!item.adminOnly || roles.includes("admin")))
         .map((item) => {
         const Icon = item.icon;
         const active = item.to ? pathname.startsWith(item.to) : false;
@@ -220,7 +221,7 @@ function Header() {
             {isAdmin && (
               <DropdownMenuItem asChild>
                 <Link to="/admin/utilisateurs">
-                  <Users /> Utilisateurs en attente
+                  <Users /> Utilisateurs
                 </Link>
               </DropdownMenuItem>
             )}
