@@ -22,6 +22,7 @@ import { Route as AuthenticatedRapportsRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedReapprovisionnementRouteImport } from './routes/_authenticated/reapprovisionnement'
 import { Route as AuthenticatedStocksRouteImport } from './routes/_authenticated/stocks'
 import { Route as AuthenticatedAdminJournalRouteImport } from './routes/_authenticated/admin/journal'
+import { Route as AuthenticatedAdminParametresRouteImport } from './routes/_authenticated/admin/parametres'
 import { Route as AuthenticatedAdminUtilisateursRouteImport } from './routes/_authenticated/admin/utilisateurs'
 
 const IndexRoute = IndexRouteImport.update({
@@ -90,6 +91,12 @@ const AuthenticatedAdminJournalRoute =
     path: '/admin/journal',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAdminParametresRoute =
+  AuthenticatedAdminParametresRouteImport.update({
+    id: '/admin/parametres',
+    path: '/admin/parametres',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminUtilisateursRoute =
   AuthenticatedAdminUtilisateursRouteImport.update({
     id: '/admin/utilisateurs',
@@ -110,6 +117,7 @@ export interface FileRoutesByFullPath {
   '/reapprovisionnement': typeof AuthenticatedReapprovisionnementRoute
   '/stocks': typeof AuthenticatedStocksRoute
   '/admin/journal': typeof AuthenticatedAdminJournalRoute
+  '/admin/parametres': typeof AuthenticatedAdminParametresRoute
   '/admin/utilisateurs': typeof AuthenticatedAdminUtilisateursRoute
 }
 export interface FileRoutesByTo {
@@ -125,6 +133,7 @@ export interface FileRoutesByTo {
   '/reapprovisionnement': typeof AuthenticatedReapprovisionnementRoute
   '/stocks': typeof AuthenticatedStocksRoute
   '/admin/journal': typeof AuthenticatedAdminJournalRoute
+  '/admin/parametres': typeof AuthenticatedAdminParametresRoute
   '/admin/utilisateurs': typeof AuthenticatedAdminUtilisateursRoute
 }
 export interface FileRoutesById {
@@ -142,6 +151,7 @@ export interface FileRoutesById {
   '/_authenticated/reapprovisionnement': typeof AuthenticatedReapprovisionnementRoute
   '/_authenticated/stocks': typeof AuthenticatedStocksRoute
   '/_authenticated/admin/journal': typeof AuthenticatedAdminJournalRoute
+  '/_authenticated/admin/parametres': typeof AuthenticatedAdminParametresRoute
   '/_authenticated/admin/utilisateurs': typeof AuthenticatedAdminUtilisateursRoute
 }
 export interface FileRouteTypes {
@@ -159,6 +169,7 @@ export interface FileRouteTypes {
     | '/reapprovisionnement'
     | '/stocks'
     | '/admin/journal'
+    | '/admin/parametres'
     | '/admin/utilisateurs'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -174,6 +185,7 @@ export interface FileRouteTypes {
     | '/reapprovisionnement'
     | '/stocks'
     | '/admin/journal'
+    | '/admin/parametres'
     | '/admin/utilisateurs'
   id:
     | '__root__'
@@ -190,6 +202,7 @@ export interface FileRouteTypes {
     | '/_authenticated/reapprovisionnement'
     | '/_authenticated/stocks'
     | '/_authenticated/admin/journal'
+    | '/_authenticated/admin/parametres'
     | '/_authenticated/admin/utilisateurs'
   fileRoutesById: FileRoutesById
 }
@@ -294,6 +307,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminJournalRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/parametres': {
+      id: '/_authenticated/admin/parametres'
+      path: '/admin/parametres'
+      fullPath: '/admin/parametres'
+      preLoaderRoute: typeof AuthenticatedAdminParametresRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/utilisateurs': {
       id: '/_authenticated/admin/utilisateurs'
       path: '/admin/utilisateurs'
@@ -313,6 +333,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedReapprovisionnementRoute: typeof AuthenticatedReapprovisionnementRoute
   AuthenticatedStocksRoute: typeof AuthenticatedStocksRoute
   AuthenticatedAdminJournalRoute: typeof AuthenticatedAdminJournalRoute
+  AuthenticatedAdminParametresRoute: typeof AuthenticatedAdminParametresRoute
   AuthenticatedAdminUtilisateursRoute: typeof AuthenticatedAdminUtilisateursRoute
 }
 
@@ -325,6 +346,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedReapprovisionnementRoute: AuthenticatedReapprovisionnementRoute,
   AuthenticatedStocksRoute: AuthenticatedStocksRoute,
   AuthenticatedAdminJournalRoute: AuthenticatedAdminJournalRoute,
+  AuthenticatedAdminParametresRoute: AuthenticatedAdminParametresRoute,
   AuthenticatedAdminUtilisateursRoute: AuthenticatedAdminUtilisateursRoute,
 }
 
