@@ -28,6 +28,7 @@ import {
   faImage,
   faFilter,
   faBan,
+  faTrash,
   faRotateLeft,
   faTags,
   faCloudArrowUp,
@@ -113,6 +114,7 @@ export const Pencil = makeIcon(faPenToSquare);
 export const ImageIcon = makeIcon(faImage);
 export const Filter = makeIcon(faFilter);
 export const Ban = makeIcon(faBan);
+export const Trash = makeIcon(faTrash);
 export const RotateLeft = makeIcon(faRotateLeft);
 export const Tags = makeIcon(faTags);
 export const CloudUpload = makeIcon(faCloudArrowUp);
