@@ -78,6 +78,13 @@
       "when": 1791469904068,
       "tag": "0010_create_reapprovisionnement",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1791470405873,
+      "tag": "0011_realtime_stocks",
+      "breakpoints": true
     }
   ]
 }
