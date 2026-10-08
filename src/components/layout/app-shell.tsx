@@ -55,7 +55,7 @@ const navigation: NavItem[] = [
   { label: "Réapprovisionnement", icon: Truck, to: "/reapprovisionnement" },
   { label: "Rapports", icon: FileChartColumn, to: "/rapports" },
   { label: "Utilisateurs", icon: Users, to: "/admin/utilisateurs", adminOnly: true },
-  { label: "Paramètres", icon: Settings },
+  { label: "Paramètres", icon: Settings, to: "/admin/parametres", adminOnly: true },
 ];
 
 

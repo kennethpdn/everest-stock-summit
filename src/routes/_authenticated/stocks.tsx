@@ -98,6 +98,7 @@ function StocksPage() {
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
   const [edition, setEdition] = useState<Ligne | null>(null);
+  const [seuilDefaut, setSeuilDefaut] = useState(10);
   const [saving, setSaving] = useState(false);
 
   const centreId = emplacement === ENTREPOT ? null : emplacement;
@@ -115,6 +116,8 @@ function StocksPage() {
         .from("stocks")
         .select("id, produit_id, centre_id, quantite_unites, seuil_alerte, derniere_maj"),
     ]);
+    const { data: params } = await supabase.from("parametres").select("seuil_alerte_defaut").maybeSingle();
+    if (params) setSeuilDefaut(params.seuil_alerte_defaut);
     if (produitsRes.error || stocksRes.error) {
       setError("Impossible de charger les stocks.");
     } else {
@@ -146,10 +149,10 @@ function StocksPage() {
           produit,
           stock,
           quantite: stock?.quantite_unites ?? 0,
-          seuil: stock?.seuil_alerte ?? 10,
+          seuil: stock?.seuil_alerte ?? seuilDefaut,
         };
       });
-  }, [produits, stocks, centreId, search, isManager]);
+  }, [produits, stocks, centreId, search, isManager, seuilDefaut]);
 
   const resume = useMemo(() => {
     let total = 0;
