@@ -301,6 +301,7 @@ export type Database = {
       }
       profiles: {
         Row: {
+          actif: boolean
           centre_id: string | null
           created_at: string
           email: string
@@ -312,6 +313,7 @@ export type Database = {
           statut: Database["public"]["Enums"]["account_status"]
         }
         Insert: {
+          actif?: boolean
           centre_id?: string | null
           created_at?: string
           email: string
@@ -323,6 +325,7 @@ export type Database = {
           statut?: Database["public"]["Enums"]["account_status"]
         }
         Update: {
+          actif?: boolean
           centre_id?: string | null
           created_at?: string
           email?: string
@@ -411,6 +414,15 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_update_user: {
+        Args: {
+          _actif: boolean
+          _centre: string
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: undefined
+      }
       apply_stock_delta: {
         Args: { _centre: string; _delta: number; _produit: string }
         Returns: undefined
