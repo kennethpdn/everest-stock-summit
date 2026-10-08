@@ -98,6 +98,57 @@ export type Database = {
         }
         Relationships: []
       }
+      demandes_reapprovisionnement: {
+        Row: {
+          centre_id: string
+          created_at: string
+          demandeur_id: string
+          id: string
+          produit_id: string
+          quantite_demandee: number
+          statut: Database["public"]["Enums"]["statut_demande"]
+          updated_at: string
+          validateur_id: string | null
+        }
+        Insert: {
+          centre_id: string
+          created_at?: string
+          demandeur_id?: string
+          id?: string
+          produit_id: string
+          quantite_demandee: number
+          statut?: Database["public"]["Enums"]["statut_demande"]
+          updated_at?: string
+          validateur_id?: string | null
+        }
+        Update: {
+          centre_id?: string
+          created_at?: string
+          demandeur_id?: string
+          id?: string
+          produit_id?: string
+          quantite_demandee?: number
+          statut?: Database["public"]["Enums"]["statut_demande"]
+          updated_at?: string
+          validateur_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "demandes_reapprovisionnement_centre_id_fkey"
+            columns: ["centre_id"]
+            isOneToOne: false
+            referencedRelation: "centres"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "demandes_reapprovisionnement_produit_id_fkey"
+            columns: ["produit_id"]
+            isOneToOne: false
+            referencedRelation: "produits"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       journal_audit: {
         Row: {
           action: string
@@ -393,6 +444,12 @@ export type Database = {
     Enums: {
       account_status: "pending" | "approved" | "rejected"
       app_role: "admin" | "gestionnaire_entrepot" | "responsable_centre"
+      statut_demande:
+        | "en_attente"
+        | "validee"
+        | "en_livraison"
+        | "livree"
+        | "refusee"
       type_centre: "bar" | "restaurant" | "supermarche" | "lounge" | "depot"
       type_mouvement:
         | "entree"
@@ -529,6 +586,13 @@ export const Constants = {
     Enums: {
       account_status: ["pending", "approved", "rejected"],
       app_role: ["admin", "gestionnaire_entrepot", "responsable_centre"],
+      statut_demande: [
+        "en_attente",
+        "validee",
+        "en_livraison",
+        "livree",
+        "refusee",
+      ],
       type_centre: ["bar", "restaurant", "supermarche", "lounge", "depot"],
       type_mouvement: [
         "entree",
