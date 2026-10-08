@@ -246,6 +246,33 @@ export type Database = {
           },
         ]
       }
+      parametres: {
+        Row: {
+          devise: string
+          format_unites: string
+          fuseau_horaire: string
+          id: boolean
+          seuil_alerte_defaut: number
+          updated_at: string
+        }
+        Insert: {
+          devise?: string
+          format_unites?: string
+          fuseau_horaire?: string
+          id?: boolean
+          seuil_alerte_defaut?: number
+          updated_at?: string
+        }
+        Update: {
+          devise?: string
+          format_unites?: string
+          fuseau_horaire?: string
+          id?: boolean
+          seuil_alerte_defaut?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       produits: {
         Row: {
           actif: boolean
@@ -427,6 +454,7 @@ export type Database = {
         Args: { _centre: string; _delta: number; _produit: string }
         Returns: undefined
       }
+      default_seuil_alerte: { Args: never; Returns: number }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
