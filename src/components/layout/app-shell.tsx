@@ -41,7 +41,7 @@ import { supabase } from "@/integrations/supabase/client";
 type NavItem = {
   label: string;
   icon: typeof Package;
-  to?: "/dashboard" | "/produits" | "/stocks" | "/centres" | "/mouvements" | "/reapprovisionnement" | "/rapports" | "/admin/utilisateurs";
+  to?: "/dashboard" | "/produits" | "/stocks" | "/centres" | "/mouvements" | "/reapprovisionnement" | "/rapports" | "/admin/utilisateurs" | "/admin/parametres";
   adminOnly?: boolean;
   managersOnly?: boolean;
 };
