@@ -80,11 +80,11 @@ function DashboardPage() {
       const i = idx[new Date(m.created_at).toDateString()];
       if (i === undefined) continue;
       if (isResponsable) {
-        if (m.centre_destination_id === profile.centre_id) jours[i].Entrées += m.quantite_unites;
-        if (m.centre_source_id === profile.centre_id) jours[i].Sorties += m.quantite_unites;
+        if (m.centre_destination_id === profile.centre_id) jours[i]!.Entrées += m.quantite_unites;
+        if (m.centre_source_id === profile.centre_id) jours[i]!.Sorties += m.quantite_unites;
       } else {
-        if (ENTREES.has(m.type_mouvement)) jours[i].Entrées += m.quantite_unites;
-        else if (SORTIES.has(m.type_mouvement) && m.type_mouvement !== "sortie_vers_centre") jours[i].Sorties += m.quantite_unites;
+        if (ENTREES.has(m.type_mouvement)) jours[i]!.Entrées += m.quantite_unites;
+        else if (SORTIES.has(m.type_mouvement) && m.type_mouvement !== "sortie_vers_centre") jours[i]!.Sorties += m.quantite_unites;
       }
     }
     const top = new Map<string, { nom: string; q: number; v: number }>();
@@ -210,7 +210,7 @@ function DashboardPage() {
                 {d.classement.length === 0 ? <p className="text-sm text-muted-foreground">Aucune vente ce mois-ci.</p> : (
                   <ol className="space-y-3">
                     {d.classement.map((c, i) => {
-                      const max = d.classement[0].v || 1;
+                      const max = d.classement[0]!.v || 1;
                       return (
                         <li key={c.id} className="text-sm">
                           <div className="flex justify-between"><span><b>{i + 1}.</b> {c.id === "entrepot" ? "Entrepôt central" : centres[c.id] ?? "Centre"}</span><span className="font-semibold text-primary">{fcfa(c.v)}</span></div>

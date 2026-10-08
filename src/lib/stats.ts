@@ -19,7 +19,7 @@ export const fcfa = (n: number) =>
 export const nombre = (n: number) => new Intl.NumberFormat("fr-FR").format(n);
 
 /** Les règles de la base limitent automatiquement les lignes au centre d'un responsable. */
-export async function fetchMouvements(opts: { depuis: Date; jusqua?: Date; types?: TypeMvt[]; centreId?: string; produitId?: string }) {
+export async function fetchMouvements(opts: { depuis: Date; jusqua?: Date; types?: TypeMvt[]; centreId?: string | undefined; produitId?: string | undefined }) {
   let q = supabase
     .from("mouvements_stock")
     .select("id, type_mouvement, quantite_unites, created_at, produit_id, centre_source_id, centre_destination_id, produits(nom, prix_unitaire)")
