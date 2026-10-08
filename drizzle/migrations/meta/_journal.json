@@ -85,6 +85,13 @@
       "when": 1791470405873,
       "tag": "0011_realtime_stocks",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1791470607561,
+      "tag": "0012_admin_user_management",
+      "breakpoints": true
     }
   ]
 }
