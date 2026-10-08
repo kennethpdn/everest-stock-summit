@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { createFileRoute, redirect, useRouteContext } from "@tanstack/react-router";
-import { Ban, Check, LoaderCircle, Pencil, RotateLeft, Search, UserCheck, X } from "@/components/ui/icons";
+import { Ban, Check, LoaderCircle, Pencil, RotateLeft, Search, Trash, UserCheck, X } from "@/components/ui/icons";
 import { AppShell } from "@/components/layout/app-shell";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,10 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
+import { useServerFn } from "@tanstack/react-start";
+import { toast } from "sonner";
+import { deleteUser } from "@/lib/users.functions";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import type { Database } from "@/integrations/supabase/types";
 
 type Role = Database["public"]["Enums"]["app_role"];
@@ -52,6 +56,8 @@ function UsersPage() {
   const [error, setError] = useState("");
   const [recherche, setRecherche] = useState("");
   const [edition, setEdition] = useState<Profil | null>(null);
+  const [aSupprimer, setASupprimer] = useState<Profil | null>(null);
+  const supprimerFn = useServerFn(deleteUser);
 
   const charger = useCallback(async () => {
     const [p, r, c] = await Promise.all([
@@ -88,6 +94,19 @@ function UsersPage() {
     setActing(null);
   }
 
+  async function supprimer(p: Profil) {
+    setActing(p.id);
+    try {
+      const r = await supprimerFn({ data: { userId: p.id } });
+      if (r.ok) { toast.success(`${p.nom_complet} a été supprimé.`); setProfils((l) => l.filter((x) => x.id !== p.id)); }
+      else toast.error(r.error);
+    } catch { toast.error("La suppression a échoué."); }
+    setActing(null); setASupprimer(null);
+  }
+  const boutonSupprimer = (p: Profil) => p.id === user.id ? null : (
+    <Button size="sm" variant="outline" className="text-danger" disabled={acting === p.id} onClick={() => setASupprimer(p)}><Trash /> Supprimer</Button>
+  );
+
   return (
     <AppShell>
       <div className="mb-6">
@@ -121,6 +140,7 @@ function UsersPage() {
                     <div className="flex gap-2">
                       <Button variant="outline" className="text-danger" disabled={acting === p.id} onClick={() => void review(p.id, false)}><X /> Refuser</Button>
                       <Button className="bg-success text-primary-foreground hover:bg-success/90" disabled={acting === p.id} onClick={() => void review(p.id, true)}>{acting === p.id ? <LoaderCircle className="animate-spin" /> : <Check />} Approuver</Button>
+                      {boutonSupprimer(p)}
                     </div>
                   </CardContent></Card>
                 ))}
@@ -151,14 +171,17 @@ function UsersPage() {
                         <td className="p-3">{nomCentre(p.centre_id)}</td>
                         <td className="p-3"><StatutBadge p={p} /></td>
                         <td className="p-3">
+                          <div className="flex justify-end gap-2">
                           {approuve && (
-                            <div className="flex justify-end gap-2">
+                            <>
                               <Button size="sm" variant="outline" onClick={() => setEdition(p)}><Pencil /> Modifier</Button>
                               {!moi && (p.actif
                                 ? <Button size="sm" variant="outline" className="text-danger" disabled={acting === p.id} onClick={() => void maj(p, role, p.centre_id, false)}><Ban /> Désactiver</Button>
                                 : <Button size="sm" variant="outline" className="text-success" disabled={acting === p.id} onClick={() => void maj(p, role, p.centre_id, true)}><RotateLeft /> Réactiver</Button>)}
-                            </div>
+                            </>
                           )}
+                          {boutonSupprimer(p)}
+                          </div>
                         </td>
                       </tr>
                     );
@@ -169,6 +192,21 @@ function UsersPage() {
           </TabsContent>
         </Tabs>
       )}
+
+      <AlertDialog open={!!aSupprimer} onOpenChange={(o) => !o && setASupprimer(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Supprimer définitivement {aSupprimer?.nom_complet} ?</AlertDialogTitle>
+            <AlertDialogDescription>Cette action est irréversible. L’historique (mouvements, demandes, journal) est conservé.</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Annuler</AlertDialogCancel>
+            <AlertDialogAction className="bg-danger text-primary-foreground hover:bg-danger/90" disabled={!!acting} onClick={(e) => { e.preventDefault(); if (aSupprimer) void supprimer(aSupprimer); }}>
+              {acting && <LoaderCircle className="animate-spin" />} Supprimer
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       {edition && (
         <EditDialog p={edition} moi={edition.id === user.id} roleActuel={roles[edition.id] ?? edition.role_souhaite} centres={centres}
