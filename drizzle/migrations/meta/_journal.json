@@ -92,6 +92,13 @@
       "when": 1791470607561,
       "tag": "0012_admin_user_management",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1791470843040,
+      "tag": "0013_create_parametres",
+      "breakpoints": true
     }
   ]
 }
