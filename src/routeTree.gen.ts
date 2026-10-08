@@ -18,6 +18,7 @@ import { Route as AuthenticatedCentresRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedMouvementsRouteImport } from './routes/_authenticated/mouvements'
 import { Route as AuthenticatedProduitsRouteImport } from './routes/_authenticated/produits'
+import { Route as AuthenticatedReapprovisionnementRouteImport } from './routes/_authenticated/reapprovisionnement'
 import { Route as AuthenticatedStocksRouteImport } from './routes/_authenticated/stocks'
 import { Route as AuthenticatedAdminJournalRouteImport } from './routes/_authenticated/admin/journal'
 import { Route as AuthenticatedAdminUtilisateursRouteImport } from './routes/_authenticated/admin/utilisateurs'
@@ -66,6 +67,12 @@ const AuthenticatedProduitsRoute = AuthenticatedProduitsRouteImport.update({
   path: '/produits',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedReapprovisionnementRoute =
+  AuthenticatedReapprovisionnementRouteImport.update({
+    id: '/reapprovisionnement',
+    path: '/reapprovisionnement',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedStocksRoute = AuthenticatedStocksRouteImport.update({
   id: '/stocks',
   path: '/stocks',
@@ -93,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/mouvements': typeof AuthenticatedMouvementsRoute
   '/produits': typeof AuthenticatedProduitsRoute
+  '/reapprovisionnement': typeof AuthenticatedReapprovisionnementRoute
   '/stocks': typeof AuthenticatedStocksRoute
   '/admin/journal': typeof AuthenticatedAdminJournalRoute
   '/admin/utilisateurs': typeof AuthenticatedAdminUtilisateursRoute
@@ -106,6 +114,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/mouvements': typeof AuthenticatedMouvementsRoute
   '/produits': typeof AuthenticatedProduitsRoute
+  '/reapprovisionnement': typeof AuthenticatedReapprovisionnementRoute
   '/stocks': typeof AuthenticatedStocksRoute
   '/admin/journal': typeof AuthenticatedAdminJournalRoute
   '/admin/utilisateurs': typeof AuthenticatedAdminUtilisateursRoute
@@ -121,6 +130,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/mouvements': typeof AuthenticatedMouvementsRoute
   '/_authenticated/produits': typeof AuthenticatedProduitsRoute
+  '/_authenticated/reapprovisionnement': typeof AuthenticatedReapprovisionnementRoute
   '/_authenticated/stocks': typeof AuthenticatedStocksRoute
   '/_authenticated/admin/journal': typeof AuthenticatedAdminJournalRoute
   '/_authenticated/admin/utilisateurs': typeof AuthenticatedAdminUtilisateursRoute
@@ -136,6 +146,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/mouvements'
     | '/produits'
+    | '/reapprovisionnement'
     | '/stocks'
     | '/admin/journal'
     | '/admin/utilisateurs'
@@ -149,6 +160,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/mouvements'
     | '/produits'
+    | '/reapprovisionnement'
     | '/stocks'
     | '/admin/journal'
     | '/admin/utilisateurs'
@@ -163,6 +175,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/_authenticated/mouvements'
     | '/_authenticated/produits'
+    | '/_authenticated/reapprovisionnement'
     | '/_authenticated/stocks'
     | '/_authenticated/admin/journal'
     | '/_authenticated/admin/utilisateurs'
@@ -241,6 +254,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedProduitsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/reapprovisionnement': {
+      id: '/_authenticated/reapprovisionnement'
+      path: '/reapprovisionnement'
+      fullPath: '/reapprovisionnement'
+      preLoaderRoute: typeof AuthenticatedReapprovisionnementRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/stocks': {
       id: '/_authenticated/stocks'
       path: '/stocks'
@@ -270,6 +290,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedMouvementsRoute: typeof AuthenticatedMouvementsRoute
   AuthenticatedProduitsRoute: typeof AuthenticatedProduitsRoute
+  AuthenticatedReapprovisionnementRoute: typeof AuthenticatedReapprovisionnementRoute
   AuthenticatedStocksRoute: typeof AuthenticatedStocksRoute
   AuthenticatedAdminJournalRoute: typeof AuthenticatedAdminJournalRoute
   AuthenticatedAdminUtilisateursRoute: typeof AuthenticatedAdminUtilisateursRoute
@@ -280,6 +301,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedMouvementsRoute: AuthenticatedMouvementsRoute,
   AuthenticatedProduitsRoute: AuthenticatedProduitsRoute,
+  AuthenticatedReapprovisionnementRoute: AuthenticatedReapprovisionnementRoute,
   AuthenticatedStocksRoute: AuthenticatedStocksRoute,
   AuthenticatedAdminJournalRoute: AuthenticatedAdminJournalRoute,
   AuthenticatedAdminUtilisateursRoute: AuthenticatedAdminUtilisateursRoute,
