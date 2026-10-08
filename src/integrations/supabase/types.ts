@@ -102,35 +102,41 @@ export type Database = {
         Row: {
           centre_id: string
           created_at: string
-          demandeur_id: string
+          demandeur_id: string | null
+          demandeur_nom: string | null
           id: string
           produit_id: string
           quantite_demandee: number
           statut: Database["public"]["Enums"]["statut_demande"]
           updated_at: string
           validateur_id: string | null
+          validateur_nom: string | null
         }
         Insert: {
           centre_id: string
           created_at?: string
-          demandeur_id?: string
+          demandeur_id?: string | null
+          demandeur_nom?: string | null
           id?: string
           produit_id: string
           quantite_demandee: number
           statut?: Database["public"]["Enums"]["statut_demande"]
           updated_at?: string
           validateur_id?: string | null
+          validateur_nom?: string | null
         }
         Update: {
           centre_id?: string
           created_at?: string
-          demandeur_id?: string
+          demandeur_id?: string | null
+          demandeur_nom?: string | null
           id?: string
           produit_id?: string
           quantite_demandee?: number
           statut?: Database["public"]["Enums"]["statut_demande"]
           updated_at?: string
           validateur_id?: string | null
+          validateur_nom?: string | null
         }
         Relationships: [
           {
@@ -195,7 +201,7 @@ export type Database = {
           produit_id: string
           quantite_unites: number
           type_mouvement: Database["public"]["Enums"]["type_mouvement"]
-          utilisateur_id: string
+          utilisateur_id: string | null
           utilisateur_nom: string | null
         }
         Insert: {
@@ -207,7 +213,7 @@ export type Database = {
           produit_id: string
           quantite_unites: number
           type_mouvement: Database["public"]["Enums"]["type_mouvement"]
-          utilisateur_id: string
+          utilisateur_id?: string | null
           utilisateur_nom?: string | null
         }
         Update: {
@@ -219,7 +225,7 @@ export type Database = {
           produit_id?: string
           quantite_unites?: number
           type_mouvement?: Database["public"]["Enums"]["type_mouvement"]
-          utilisateur_id?: string
+          utilisateur_id?: string | null
           utilisateur_nom?: string | null
         }
         Relationships: [
