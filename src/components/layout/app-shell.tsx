@@ -41,7 +41,7 @@ import { supabase } from "@/integrations/supabase/client";
 type NavItem = {
   label: string;
   icon: typeof Package;
-  to?: "/dashboard" | "/produits" | "/stocks" | "/centres" | "/mouvements" | "/reapprovisionnement";
+  to?: "/dashboard" | "/produits" | "/stocks" | "/centres" | "/mouvements" | "/reapprovisionnement" | "/rapports";
   managersOnly?: boolean;
 };
 
@@ -52,7 +52,7 @@ const navigation: NavItem[] = [
   { label: "Mouvements", icon: ArrowDownUp, to: "/mouvements" },
   { label: "Centres de vente", icon: Building2, to: "/centres", managersOnly: true },
   { label: "Réapprovisionnement", icon: Truck, to: "/reapprovisionnement" },
-  { label: "Rapports", icon: FileChartColumn },
+  { label: "Rapports", icon: FileChartColumn, to: "/rapports" },
   { label: "Utilisateurs", icon: Users },
   { label: "Paramètres", icon: Settings },
 ];
